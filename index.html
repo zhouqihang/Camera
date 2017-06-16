@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>HTML5 相机</title>
+    <style>
+        body {
+            padding: 10px;
+        }
+        #camera {
+            display: inline-block;
+            border: 4px solid rgba(0, 0, 0, 0.7);
+            border-radius: 5px;
+        }
+        .btns {
+            width: 50px;
+            height: 50px;
+            background: url(camera.svg) no-repeat center center #000;
+            background-size: 100%;
+            padding: 5px;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .photo {
+            padding: 5px;
+            margin: 5px;
+            display: inline-block;
+            border: 4px solid rgba(0, 0, 0, 0.7);
+            border-radius: 5px;
+        }
+        .photo > img {
+            vertical-align: top;
+        }
+    </style>
+</head>
+<body>
+<!-- 相机容器 -->
+<div id="camera"></div>
+<div class="btns" onclick="done()"></div>
+<br>
+<div class="photo"></div>
+
+<script src="camera.js"></script>
+<script>
+    var camera = new Camera('camera', {
+        needEdit: true,
+        imageType: 'png',
+        width: 240,
+        height: 360
+    });
+    camera.init();
+
+    var photoBox = document.querySelector('.photo');
+
+    function done() {
+        var child = photoBox.childNodes;
+        if (child.length > 0) {
+            photoBox.replaceChild(camera.take(), child[0]);
+        } else {
+            photoBox.appendChild(camera.take())
+        }
+    }
+</script>
+</body>
+</html>
